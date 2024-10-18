@@ -6,9 +6,14 @@ service: serverless-backend-nodejs
 provider:
   name: aws
   runtime: nodejs20.x
+  environment:
+    DATABASE_URL: ${env:DATABASE_URL, "fallback value"}
 
 functions:
   api:
-    handler: handler.handler
+    handler: src/index.handler
     events:
       - httpApi: "*"
+
+plugins:
+  - serverless-offline
