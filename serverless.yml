@@ -6,6 +6,7 @@ service: serverless-backend-nodejs
 provider:
   name: aws
   runtime: nodejs20.x
+  region: ap-south-1
   environment:
     DATABASE_URL: ${env:DATABASE_URL, "fallback value"}
 
@@ -14,6 +15,13 @@ functions:
     handler: src/index.handler
     events:
       - httpApi: "*"
+
+custom:
+  dotenv:
+    exclude:
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+      - AWS_SESSION_TOKEN
 
 plugins:
   - serverless-offline

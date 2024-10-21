@@ -11,7 +11,7 @@ const dbClient = async () => {
 
 app.get("/", async (req, res, next) => {
   const db = await dbClient();
-  const result = await db`select NOW();`;
+  const result = await db`select * from playing_with_neon;`;
 
   return res.status(200).json({
     message: "Hello from root!",
