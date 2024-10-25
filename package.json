@@ -7,7 +7,8 @@
     "info": "serverless info --stage prod --region ap-south-1",
     "deploy": "serverless deploy --stage prod --region ap-south-1",
     "remove": "serverless remove --stage prod --region ap-south-1",
-    "package": "serverless package --stage prod"
+    "package": "serverless package --stage prod",
+    "generate": "drizzle-kit generate --config=drizzle.config.js"
   },
   "dependencies": {
     "@aws-sdk/client-ssm": "^3.677.0",
