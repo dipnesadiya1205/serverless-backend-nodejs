@@ -7,7 +7,6 @@ const app = express();
 app.get("/", async (req, res, next) => {
   const db = await getDbClient();
   const now = Date.now();
-  const result = await db`select * from playing_with_neon;`;
   const [fetchTime] = await db`select NOW();`;
 
   const timeDiff = (fetchTime.now.getTime() - now) / 1000;
@@ -15,7 +14,6 @@ app.get("/", async (req, res, next) => {
   return res.status(200).json({
     message: "Hello from root!",
     timeTaken: timeDiff,
-    result,
   });
 });
 
