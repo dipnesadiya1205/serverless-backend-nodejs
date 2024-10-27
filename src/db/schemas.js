@@ -7,4 +7,4 @@ const LeadTable = pgTable("leads", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
-    module.exports.LeadTable = LeadTable;
+module.exports.LeadTable = LeadTable;

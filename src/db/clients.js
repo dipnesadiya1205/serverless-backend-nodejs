@@ -1,4 +1,5 @@
 const { neon } = require("@neondatabase/serverless");
+const { drizzle } = require("drizzle-orm/neon-http");
 const secrets = require("../lib/secrets");
 
 const getDbClient = async () => {
@@ -7,4 +8,10 @@ const getDbClient = async () => {
   return sql;
 };
 
+const getDrizzleDbClient = async () => {
+  const sql = await getDbClient();
+  return drizzle(sql);
+};
+
 module.exports.getDbClient = getDbClient;
+module.exports.getDrizzleDbClient = getDrizzleDbClient;
