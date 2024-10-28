@@ -2,6 +2,7 @@ const serverless = require("serverless-http");
 const express = require("express");
 const { getDbClient } = require("./db/clients");
 const { listLeads, newLead, getLead } = require("./db/crud");
+const { validateLeadData } = require("./db/validator");
 
 const app = express();
 app.use(express.json());
@@ -37,9 +38,23 @@ app.get("/leads", async (req, res) => {
 });
 
 app.post("/leads", async (req, res) => {
-  const { email, description } = req.body;
+  const postData = req.body;
 
-  const result = await newLead(email, description);
+  // Validate the input data.
+  const { data, hasError, message } = await validateLeadData(postData);
+
+  if (hasError) {
+    return res.status(400).json({
+      error: message,
+    });
+  } else if (hasError === undefined) {
+    return res.status(500).json({
+      error: "Internal Server Error",
+    });
+  }
+
+  // Add the lead to the database.
+  const result = await newLead({ ...data, description: postData.description });
   return res.status(200).json({
     message: "Lead added successfully",
     payload: result,
